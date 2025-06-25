@@ -1,0 +1,22 @@
+<?php
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Product;
+
+class ProductApiController extends Controller
+{
+    public function index()
+{
+    $products = Product::with('category')->paginate(12);
+    return response()->json($products, 200, [], JSON_PRETTY_PRINT);
+}
+
+
+    public function show($id)
+{
+    $product = Product::with('category')->findOrFail($id);
+    return response()->json($product, 200, [], JSON_PRETTY_PRINT);
+}
+
+}
